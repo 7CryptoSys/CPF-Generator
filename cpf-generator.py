@@ -1,34 +1,64 @@
+#GERADOR DE CPF
+
 import random
+numeros = "1234567890"
+digitos = 8
+estado = {1: "DF, GO, MS, MT, TO",
+          2: "AC, AM, AP, PA, RO, RR",
+          3: "CE, MA, PI",
+          4: "AL, PB, PE, RN",
+          5: "BA, SE",
+          6: "MG",
+          7: "ES, RJ",
+          8: "SP",
+          9: "PR, SC",
+          10:"RS"}
 
-#Gerador de CPF
+print(f"""
+    1: {estado[1]}
+    2: {estado[2]}
+    3: {estado[3]}
+    4: {estado[4]}
+    5: {estado[5]}
+    6: {estado[6]}
+    7: {estado[7]}
+    8: {estado[8]}
+    9: {estado[9]}
+    0: {estado[10]}""")
+escolher_estado = input("Escolha um numero dos citados acima:")
+cpf = "".join(random.sample(numeros, digitos))
+cpf = cpf + escolher_estado
+print(f"Seu cpf está quase completo, ele está assim:{cpf}")
 
-numero = "0123456789"
-tamanho_cpf = 9
 
-menu = int(input("""
-        [1] Gerar um CPF
-        [2] Verificar se um CPF é valido
-        Escolha uma opção:"""))
+def calculo_digitoX(cpf):
+  multiplicador = 2
+  soma_total = 0
+  for digito in cpf:
+    soma = int(digito) * multiplicador
+    multiplicador += 1
+    soma_total += soma
+  resto = soma_total % 11 
+  X = 11 - resto
+  print(f"O digito X é: {X}")
+  cpf = cpf + str(X)
+  return X
 
-def gerar_cpf():
-  cpf = "".join(random.sample(numero, tamanho_cpf))
-  cpf = cpf[0:3] + "." + cpf [2:5] + "." + cpf [5:8] + "-" + "".join(random.sample(numero, 2))
-  #Usei os comandos "-" + "".join(random.sample(numero, 2)) para ser gerado os ultimos 2 digitos do cpf.
-  #Já que o numeros só vão de 0 a 9, e o cpf precisa de 11, então o sample dava erro
-  print(cpf)
+cpf = cpf + str(calculo_digitoX(cpf))
 
 
-def validar_cpf():
-  cpf_verify = int(input("Digite os numeros do cpf:"))
-  cpf_verify = str(cpf_verify)
-  cpf_verify = cpf_verify[0:3] + "." + cpf_verify [2:5] + "." + cpf_verify [5:8] + "-" + "".join(random.sample(numero, 2))  
-  if len(cpf_verify) == 14:
-    print("CPF válido")
-  else:
-    print("CPF invalido")
-    
+def calculo_digitoY(cpf):
+    multiplicador = 2
+    soma_totalY = 0
+    cpf = cpf[1:10]
+    for digitoY in cpf:
+      somaY = int(digitoY) * multiplicador
+      multiplicador += 1
+      soma_totalY += somaY
+    restoY = soma_totalY % 11
+    Y = 11 - restoY
+    print(f"Digito Y é: {Y}")
+    return Y
 
-if menu == 1:
-  print(gerar_cpf())
-elif menu == 2:
-  print(validar_cpf())
+cpf = cpf + str(calculo_digitoY(cpf))
+print(cpf)
