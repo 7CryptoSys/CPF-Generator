@@ -4,15 +4,12 @@
 
 </div>
 
-### Gerador de CPF/Verificador:
+### Gerador de CPF
 
-Tendo sido usado defs, e manipulação de texto para colocar num formato de CPF e de mais alguns truques para fazer uma geração de numeros com o padrão da vida real usando funções básicas do random como sample e join, para conseguirmos editar ele, apenas precisamos manipulação de texto.
+Tendo sido usado defs, e manipulação de texto para colocar num formato de CPF e de mais alguns truques para fazer uma geração de numeros com o padrão da vida real usando funções básicas do random como sample e join, para conseguirmos editar ele, apenas precisamos manipulação de texto além de for, não é nada muito avançado, mas é o básico que funciona, se quiser organizar o cpf bonitinho faça igual ao exemplo 
 
  ### Exemplo:
 
    ```py
-cpf = cpf[0:3] + "." + cpf [2:5] + "." + cpf [5:8] + "-" + "".join(random.sample(numero, 2))
-#Aqui vemos que a cada 3 caracteres, eu corto e adiciono um "." para separar e ficar igual
-#a vida real, e no final como os numeros eram limitados, eu fiz criar 2 numeros random. 
-
+ cpf = cpf[0:3] + "." + cpf[3:6] + "." + cpf[6:9] + "-" str(calculo_digitoX(cpf)) + str(calculo_digitoY(cpf))
 
