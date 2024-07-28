@@ -1,5 +1,3 @@
-#GERADOR DE CPF
-
 import random
 numeros = "1234567890"
 digitos = 8
@@ -32,14 +30,15 @@ print(f"Seu cpf está quase completo, ele está assim:{cpf}")
 
 
 def calculo_digitoX(cpf):
-  multiplicador = 2
+  multiplicador = 10
   soma_total = 0
   for digito in cpf:
-    soma = int(digito) * multiplicador
-    multiplicador += 1
-    soma_total += soma
-  resto = soma_total % 11 
-  X = 11 - resto
+    soma_total += int(digito) * multiplicador
+    multiplicador -= 1
+  resto = (soma_total*10) % 11 
+  X = resto
+  if resto > 9:
+    X = 0
   print(f"O digito X é: {X}")
   cpf = cpf + str(X)
   return X
@@ -48,17 +47,17 @@ cpf = cpf + str(calculo_digitoX(cpf))
 
 
 def calculo_digitoY(cpf):
-    multiplicador = 2
+    multiplicador = 11
     soma_totalY = 0
-    cpf = cpf[1:10]
     for digitoY in cpf:
-      somaY = int(digitoY) * multiplicador
-      multiplicador += 1
-      soma_totalY += somaY
-    restoY = soma_totalY % 11
-    Y = 11 - restoY
+      soma_totalY += int(digitoY) * multiplicador
+      multiplicador -= 1
+    restoY = (soma_totalY*10) % 11
+    Y = restoY
+    if Y > 9:
+      Y = 0
     print(f"Digito Y é: {Y}")
     return Y
 
 cpf = cpf + str(calculo_digitoY(cpf))
-print(cpf)
+print(f"Seu cpf gerado é {cpf}")
